@@ -19,6 +19,12 @@ const duracion = moment.duration(diferencia);
 const anios = Math.floor(duracion.asYears());
 const dias = Math.floor(duracion.asDays());
 
+//Formateamos las fechas
+const edadFormateada = edad.format('DD/MM/yyyy');
+const hoyFormateado = hoy.format('DD/MM/yyyy');
+
 //Procedemos a imprimir el resultado
+console.log(`Hoy es ${hoyFormateado}`);
+console.log(`Nací el ${edadFormateada}`);
 console.log(`Desde mi nacimiento han pasado ${anios} años.`);
 console.log(`Desde mi nacimiento han pasado ${dias} dias.`);
