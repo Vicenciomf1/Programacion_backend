@@ -8,7 +8,7 @@ const servidor = http.createServer((peticion, respuesta) => {
   const ahora = moment(new Date());
   //Obtenemos la hora
   const hora = ahora.hours();
-  //En base a la hora decidimos que mensaje mostar
+  //En base a la hora decidimos que mensaje
   if (hora >= 6 && hora <= 12) {
     respuesta.end('Buenos dias!');
   } else if(hora >= 13 && hora <= 19) {

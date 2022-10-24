@@ -13,7 +13,7 @@ let visitas = 0;
 
 //Definimos la ruta principal en donde mostraremos el mensaje
 aplicacion.get('/', (peticion, respuesta) => {
-  respuesta.send('<h1>Bienvenidos al servidor express</h1>');
+  respuesta.send('<h1 style="color: blue">Bienvenidos al servidor express</h1>');
 });
 
 //Definimos la ruta de las visitas en donde mostraremos el contador
@@ -25,7 +25,7 @@ aplicacion.get('/visitas', (peticion, respuesta) => {
 //Definimos la ruta para mostrar la fecha y la hora
 aplicacion.get('/fyh', (peticion, respuesta) => {
   const fyh = moment(new Date());
-  const fyhFormateado = fyh.fdormat('DD/M/yyyy hh:mm:ss');
+  const fyhFormateado = fyh.format('DD/M/yyyy hh:mm:ss');
   respuesta.send({
     fyh: fyhFormateado
   });
