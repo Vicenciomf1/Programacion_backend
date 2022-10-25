@@ -1,111 +1,92 @@
-//Definimos las librerias
 const express = require('express');
-const bodyParser = require("body-parser");
 
-//Instanciamos la app de express
 const aplicacion = express();
 
-//Colocamos el puerto de escucha
-const puerto = '8080';
+aplicacion.use(express.json())
+aplicacion.use(express.urlencoded({ extended: true }))
 
-aplicacion.use(bodyParser.urlencoded({ extended: false }));
-aplicacion.use(bodyParser.json());
+const port = 8080;
 
-//Inicializamos la frase
-let frase = 'Frase Inicial'
+let frase = 'Frase Inicial';
 
-//Definimos la ruta para mostrar la frase
 aplicacion.get('/api/frase', (peticion, respuesta) => {
-  respuesta.send({
+  respuesta.json({
     frase: frase
   });
 });
 
-//Definimos la ruta para mostrar las palabras
 aplicacion.get('/api/palabras/:pos', (peticion, respuesta) => {
-  const indice = peticion.params.pos;
-  const fraseQuebrada = frase.split(' ');
-  if (isNaN(indice)) {
+  const pos = peticion.params.pos;
+  const fraseDividida = frase.split(' ');
+  //Si no es un numero
+  if (isNaN(pos)) {
     respuesta.send({
-      error: 'El parámetro no es un número'
+      error: 'El param no es un num'
     });
     return;
   }
-  if (indice > fraseQuebrada.length && indice < 1) {
+
+  const numFormateado = parseInt(pos) - 1;
+  //Si esta fuera de rango
+  if (numFormateado < 0 || numFormateado >= fraseDividida.length) {
     respuesta.send({
-      error: 'El parámetro está fuera de rango'
+      error: 'El param esta fuera de rango'
     });
     return;
   }
-  const indiceFormateado = parseInt(indice) - 1;
-  const palabra = fraseQuebrada[indiceFormateado];
-  respuesta.send({
-    palabra: palabra
+  
+  const palabra = fraseDividida[numFormateado];
+
+  respuesta.json({
+    buscada: palabra
   });
 });
 
-//Definimos nuestro post para insertar palabras
 aplicacion.post('/api/palabras', (peticion, respuesta) => {
   const palabra = peticion.body.palabra;
-  frase += ' ' + palabra;
+
+  frase += ' ' + palabra; 
+  const palabras = frase.split(' ');
+  const cantidadPalabras = palabras.length;
+
   respuesta.json({
     agregada: palabra,
+    pos: cantidadPalabras
   });
 });
 
-//Definimos nuestro put para cambiar de palabra
 aplicacion.put('/api/palabras/:pos', (peticion, respuesta) => {
-  const indice = peticion.params.pos;
-  const palabra = peticion.body.palabra;
-  const fraseQuebrada = frase.split(' ');
-  if (isNaN(indice)) {
-    respuesta.send({
-      error: 'El parámetro no es un número'
-    });
-    return;
-  }
-  if (indice > fraseQuebrada.length && indice < 1) {
-    respuesta.send({
-      error: 'El parámetro está fuera de rango'
-    });
-    return;
-  }
-  const indiceFormateado = parseInt(indice) - 1;
-  fraseQuebrada[indiceFormateado] = palabra;
-  frase = fraseQuebrada.join(' ');
-  respuesta.send({
-    success: 'ok',
+  const nuevaPalabra = peticion.body.palabra;
+  const pos = parseInt(peticion.params.pos) - 1;
+
+  const palabras = frase.split(' ');
+  const anterior = palabras[pos];
+
+  palabras[pos] = nuevaPalabra;
+
+  frase = palabras.join(' ');
+
+  respuesta.json({
+    actualizada: nuevaPalabra,
+    anterior: anterior
   });
 });
 
-//Definimos nuestro delete para eliminar palabras
 aplicacion.delete('/api/palabras/:pos', (peticion, respuesta) => {
-  const indice = peticion.params.pos;
-  const fraseQuebrada = frase.split(' ');
-  if (isNaN(indice)) {
-    respuesta.send({
-      error: 'El parámetro no es un número'
-    });
-    return;
-  }
-  if (indice > fraseQuebrada.length && indice < 1) {
-    respuesta.send({
-      error: 'El parámetro está fuera de rango'
-    });
-    return;
-  }
-  const indiceFormateado = parseInt(indice) - 1;
-  fraseQuebrada.splice(indiceFormateado,1);
-  frase = fraseQuebrada.join(' ');
-  respuesta.send({
-    success: 'ok',
+  const pos = parseInt(peticion.params.pos) - 1;
+
+  const palabras = frase.split(' ');
+  palabras.splice(pos, 1);
+
+  frase = palabras.join(' ');
+
+  respuesta.json({
+    status: "ok"
   });
 });
 
-//Hacemos que el app escuche en el puerto determinado
-const servidor = aplicacion.listen(puerto, () => {
-  console.log(`Servidor Http escuchando en el puerto ${servidor.address().port}`);
+const servidor = aplicacion.listen(port, () => {
+  console.log(`Servidor escuchando: ${servidor.address().port}`);
 });
 
-//Definimos la escucha al evento para mostrar los errores
-servidor.on('error', error => console.log(`Error en servidor ${error}`));
+servidor.on('error', error => console.log(`Error: ${error}`));
