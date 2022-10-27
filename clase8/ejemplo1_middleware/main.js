@@ -14,6 +14,19 @@ const puerto = 8080;
 aplicacion.use(express.json());
 aplicacion.use(express.urlencoded({ extended: true }));
 
+//Manejo de accesso
+aplicacion.use((peticion, respuesta, next) => {
+  const key = peticion.headers.key;
+  if(key == 1234){
+    next();//Autorizar ejecutar lo siguiente
+  }
+  respuesta.status(403).send('Acceso denegado!');
+});
+
+aplicacion.use((error, peticion, respuesta, next) => {
+  respuesta.status(500).send('Ha ocurrido un error en el middleware!');
+});
+
 //Definimos los elementos en memoria
 const personas = [];
 const mascotas = [];

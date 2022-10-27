@@ -8,13 +8,13 @@
 </head>
 <body>
   <header>
-    <h1>Formulario!</h1>
+    <h1>Formulario:</h1>
   </header>
   <div>
-    <h2>Subir Archivos</h2>
-    <form action="http://localhost:8080/uploadfile" method="post" enctype="multipart/form-data">
-      <input type="file" id="myFile" name="myFile">
-      <input type="submit">
+    <h2>Subir archivo</h2>
+    <form action="/upload" enctype="multipart/form-data" method="post">
+      <input type="file" name="myFile">
+      <input type="submit" value="Enviar">
     </form>
   </div>
 </body>

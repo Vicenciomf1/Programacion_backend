@@ -3,50 +3,44 @@ const multer = require('multer');
 
 const aplicacion = express();
 
-const port = 8080;
+const puerto = 8080;
 
-aplicacion.use(express.json())
-aplicacion.use(express.urlencoded({ extended: true }))
+aplicacion.use(express.json());
+aplicacion.use(express.urlencoded({ extended: true }));
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, __dirname + '/uploads');
+//Configurar multer (el como se guarda)
+const almacenamiento = multer.diskStorage({
+  destination: (peticion, archivo, next) => {
+    next(null, __dirname + '/uploads');
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
+  filename: (peticion, archivo, next) => {
+    next(null, Date.now() + '-' + archivo.originalname);
   }
 });
+
 const upload = multer({
-  storage: storage
+  storage: almacenamiento
 });
 
+//***** Hacemos la carpeta public visible
 aplicacion.use('/static', express.static(__dirname + '/public'));
 
-aplicacion.get('/', (peticion, respuesta) => {
-  respuesta.sendFile(__dirname + '/public');
-});
-
-aplicacion.post('/uploadfile', upload.single('myFile'), (peticion, respuesta, next) => {
-  const file = peticion.file;
-  if (!file) {
-    const error = new Error('Please upload a file');
-    error.httpStatisCode = 400;
+// Definir funcion de subida
+aplicacion.post('/upload', upload.single('myFile') /*El middleware que lo guarda*/, (peticion, respuesta) => {
+  //Es cuando ya se guardó y preparamosla respuesta al cliente
+  const archivo = peticion.file;
+  if (!archivo) {
+    const error = new Error('El archivo no fue subido');
+    error.httpStatusCode = 400;
     return next(error);
   }
-  respuesta.send(file);
+  respuesta.send(archivo);
 });
 
-aplicacion.post('/uploadmultiple', upload.array('myFiles', 12), (peticion, respuesta, next) => {
-  const files = peticion.files;
-  if (!files) {
-    const error = new Error('Please upload a file');
-    error.httpStatisCode = 400;
-    return next(error);
-  }
-  respuesta.send(files);
-});
 
-const servidor = aplicacion.listen(port, () => {
+
+
+const servidor = aplicacion.listen(puerto, () => {
   console.log(`Servidor escuchando: ${servidor.address().port}`);
 });
 
