@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Personas</h1>
+    <h2>Formulario:</h2>
+    <form action="/personas" method="post">
+      <label for="nombre">Nombre:</label><br>
+      <input type="text" id="nombre" name="nombre"><br>
+      <label for="apellido">Apellido:</label><br>
+      <input type="text" id="apellido" name="apellido"><br>
+      <label for="edad">Edad:</label><br>
+      <input type="text" id="edad" name="edad">
+      <input type="submit" value="Enviar">
+    </form>
+    <br>
+    <% if (personas && personas.length) { %>
+    <h2>Registro:</h2>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>edad</th>
+        </tr>
+        <% personas.forEach( (persona) => {  %>
+            <tr>
+                <td><%= persona.nombre %></td>
+                <td><%= persona.apellido %></td>
+                <td><%= persona.edad %></td>
+            </tr>
+        <% } ); %>
+    </table>
+    <% } else { %>
+        <h3>No se encontraron datos</h3>
+    <% } %>
+</body>
+</html>
+        
