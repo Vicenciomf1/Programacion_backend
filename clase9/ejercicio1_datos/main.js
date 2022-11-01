@@ -3,7 +3,7 @@ const express = require('express');
 const aplicacion = express();
 const puerto = 8080;
 
-//***** Hacemos la carpeta public visible
+//***** Hacemos la carpeta public visibleplantilla1.cte
 aplicacion.use('/static', express.static(__dirname + '/public'));
 
 //Definimos el server
