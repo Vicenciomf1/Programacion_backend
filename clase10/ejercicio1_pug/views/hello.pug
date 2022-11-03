@@ -1,15 +1,12 @@
 html
-    head 
-        title='Mi primera plantilla en Pug JS'
-    body 
-        h1=titulo
-    div(
-        style=`display:flex; margin: 0 auto;`
+  head
+    title="Mi primera plantilla en pug js"
+  body
+    h1(style=`color: blue`)=titulo
+    span=min
+    meter(
+      min=min
+      max=max 
+      value=nivel
     )
-        p=min
-        progress(
-            value=value
-            max=size
-            min=min
-        )
-        p=max
+    span=max

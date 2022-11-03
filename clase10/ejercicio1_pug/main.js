@@ -3,32 +3,25 @@ const express = require('express');
 const aplicacion = express();
 const puerto = 8080;
 
-aplicacion.set('view engine', 'pug'); // registra el motor de plantillas
-aplicacion.set('views', './views'); // especifica el directorio de vistas
+aplicacion.set('views', __dirname + '/views');
+aplicacion.set('view engine', 'pug');
 
-aplicacion.get('/datos', (req, res) => {
-  const max = req.query.max;
-  const min = req.query.min;
-  const value = req.query.nivel;
-  const titulo = req.query.titulo;
+aplicacion.get('/datos', (peticion, respuesta) => {
+  const min = peticion.query.min;
+  const max = peticion.query.max;
+  const nivel = peticion.query.nivel;
+  const titulo = peticion.query.titulo;
 
-  const size = max - min;
-  const balancedValue = value - min;
-
-  res.render('hello.pug', {
-    size: size,
-    max: max,
-    min: min,
-    value: balancedValue,
-    titulo: titulo,
+  respuesta.render('hello', {
+    titulo,
+    max,
+    min,
+    nivel
   });
 });
 
-//***********
-
-//Definimos el server
-const servidor = aplicacion.listen(puerto, () => {
-  console.log(`Servidor escuchando: ${servidor.address().port}`);
+const servidor = aplicacion.listen(8080, () => {
+  console.log(`Servidor escuchando en: ${servidor.address().port}`);
 });
 
-servidor.on('error', error => console.log(`Error: ${error}`));
+servidor.on('error', error => console.log(`Ha ocurrido un error ${error}`));

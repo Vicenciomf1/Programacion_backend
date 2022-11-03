@@ -1,5 +1,5 @@
 {
-  "name": "ejercicio1_pug",
+  "name": "consigna",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "pug": "^3.0.2"
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
   }
 }
