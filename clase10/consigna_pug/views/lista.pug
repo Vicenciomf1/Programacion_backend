@@ -1,0 +1,25 @@
+html
+  head
+    title="Mi primera plantilla en pug js"
+  body
+    a(
+      href='/'
+    )='<- Ir a formulario'
+    h2='Vista de Productos'
+    if productos.length == 0
+      h3='No hay datos.'
+    else 
+      table
+        tr 
+          th='Titulo'
+          th='Precio'
+          th='Producto'
+        each producto in productos
+          tr 
+            td=producto.title
+            td=producto.price
+            td
+              img(
+                src=producto.thumbnail
+              )
+

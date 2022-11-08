@@ -1,0 +1,47 @@
+html
+  head
+    title="Mi primera plantilla en pug js"
+  body
+    a(
+      href='/productos'
+    )='Ir a la lista ->'
+    h2='Ingrese producto: '
+    form(
+      action="/productos" 
+      method="post"
+    )
+      label(
+        for="title"
+      )='Titulo:'
+      input(
+        id="title"
+        type="text"
+        name="title"
+      )
+      br
+      br
+      label(
+        for="price"
+      )='Precio:'
+      input(
+        id="price"
+        type="text"
+        name="price"
+      )
+      br
+      br
+      label(
+        for="thumbnail"
+      )='Foto Url'
+      input(
+        id="thumbnail"
+        type="text"
+        name="thumbnail"
+      )
+      br
+      br
+      input(
+        type="submit"
+        value="Enviar"
+      )
+
