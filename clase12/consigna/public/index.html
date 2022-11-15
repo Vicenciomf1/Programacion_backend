@@ -35,6 +35,15 @@
             <td><img src="{{thumbnail}}" alt=""></td>
           </tr> -->
       </table>
+      <br>
+      <br>
+      <h2>Centro de Mensajes</h2>
+      <form onsubmit="return addMessage(this)">
+        <input type="email" id="email" placeholder="Tu Email" >
+        <input type="text" id="texto" placeholder="Cuéntanos algo...">
+        <input type="submit" value="Enviar">
+      </form>
+      <div id="messages"></div>
   </div>
 </body>
 </html>

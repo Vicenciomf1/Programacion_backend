@@ -1,5 +1,6 @@
 //Servidor************
 const express = require('express');
+const moment = require('moment');
 const aplicacion = express();
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
@@ -20,6 +21,7 @@ aplicacion.use(express.static(publicRoot));
 //****************
 
 const productos = new Contenedor('./src/db/productos.txt');
+const mensajes = new Contenedor('./src/db/mensajes.txt');
 
 //Endpoints***
 
@@ -49,6 +51,18 @@ io.on('connection', async (socket) => {
   socket.on("new-product", (data) => {
     productos.save(data);
     io.sockets.emit('producto', data);
+  });
+
+  //Para enviar todos los mensajes en la primera conexion
+  const listaMensajes = await mensajes.getAll();
+  socket.emit('messages', listaMensajes);
+
+  //Evento para recibir nuevos mensajes
+  socket.on('new-message', async data => {
+    data.time = moment(new Date()).format('DD/MM/YYYY hh:mm:ss');
+    await mensajes.save(data);
+    const listaMensajes = await mensajes.getAll();
+    io.sockets.emit('messages', listaMensajes);
   });
 });
 //****************
