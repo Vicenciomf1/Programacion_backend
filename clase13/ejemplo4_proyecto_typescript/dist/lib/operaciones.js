@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.div = exports.mult = exports.restar = exports.sumar = void 0;
+var sumar = function (a, b) { return a + b; };
+exports.sumar = sumar;
+var restar = function (a, b) { return a - b; };
+exports.restar = restar;
+var mult = function (a, b) { return a * b; };
+exports.mult = mult;
+var div = function (a, b) { return a / b; };
+exports.div = div;
