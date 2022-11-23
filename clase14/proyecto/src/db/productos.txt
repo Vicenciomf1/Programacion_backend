@@ -1,7 +1,7 @@
 [
   {
-    "nombre": "Escuadra",
-    "descripcion": "Escuadra",
+    "nombre": "Escuadra X3",
+    "descripcion": "Escuadra X3",
     "timestamp": 1668647566189,
     "codigo": "1234567890",
     "precio": 123.45,
