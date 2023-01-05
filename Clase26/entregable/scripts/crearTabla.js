@@ -10,7 +10,7 @@ try {
     await mariaDbClient.schema.dropTableIfExists('productos')
 
     await mariaDbClient.schema.createTable('productos', table => {
-        table.increments('id').primary()
+        table.increments('id').primary() 
         table.string('title', 30).notNullable()
         table.float('price').notNullable()
         table.string('thumbnail', 1024)
