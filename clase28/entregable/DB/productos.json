@@ -1,0 +1,32 @@
+[
+  {
+    "title": "ccccc",
+    "price": "456",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Logo_FSD.png",
+    "id": 1
+  },
+  {
+    "title": "fasd",
+    "price": "2343",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Logo_FSD.png",
+    "id": 2
+  },
+  {
+    "title": "aaa",
+    "price": "111",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Logo_FSD.png",
+    "id": 3
+  },
+  {
+    "title": "y",
+    "price": "456",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Logo_FSD.png",
+    "id": 4
+  },
+  {
+    "title": "a",
+    "price": "1",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Logo_FSD.png",
+    "id": 5
+  }
+]
